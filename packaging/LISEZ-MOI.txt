@@ -1,0 +1,49 @@
+NOTHING X APP pour macOS — version 1.0.0
+Application compagnon (non officielle) pour écouteurs Nothing & CMF.
+Entièrement prise en charge : CMF Buds Pro 2.
+
+INSTALLATION
+1. Glissez « Nothing X App » sur le dossier « Applications ».
+2. Ouvrez l'app depuis le Launchpad ou le dossier Applications.
+3. Au premier lancement, macOS peut bloquer l'app (elle n'est pas signée
+   par un développeur Apple identifié). Dans ce cas :
+   Réglages Système > Confidentialité et sécurité > tout en bas,
+   cliquez « Ouvrir quand même », puis confirmez.
+   (Sur macOS 14 ou plus ancien : clic droit sur l'app > Ouvrir.)
+4. Autorisez l'accès Bluetooth quand macOS le demande.
+
+AVANT DE VOUS CONNECTER
+- Jumelez vos écouteurs avec le Mac (Réglages Système > Bluetooth)
+  et connectez-les comme appareil audio.
+- Une seule application à la fois peut piloter les écouteurs :
+  fermez Ear (web) dans votre navigateur, et l'app Nothing X sur votre
+  téléphone si elle est ouverte. L'app se connecte toute seule dès que
+  c'est possible.
+
+Application non officielle, ni affiliée ni approuvée par
+Nothing Technology Limited.
+
+-----------------------------------------------------------------------
+
+NOTHING X APP for macOS — version 1.0.0
+Unofficial companion app for Nothing & CMF earbuds.
+Fully supported: CMF Buds Pro 2.
+
+INSTALL
+1. Drag "Nothing X App" onto the "Applications" folder.
+2. Open the app from Launchpad or the Applications folder.
+3. On first launch macOS may block the app (it is not signed by an
+   identified Apple developer). If so: System Settings > Privacy &
+   Security > scroll down, click "Open Anyway", then confirm.
+   (macOS 14 or earlier: right-click the app > Open.)
+4. Allow Bluetooth access when macOS asks.
+
+BEFORE CONNECTING
+- Pair your earbuds with the Mac (System Settings > Bluetooth) and
+  connect them as an audio device.
+- Only one app at a time can control the earbuds: close Ear (web) in
+  your browser, and the Nothing X app on your phone if it is open. The
+  app connects on its own as soon as it can.
+
+Unofficial app, not affiliated with or endorsed by Nothing Technology
+Limited.

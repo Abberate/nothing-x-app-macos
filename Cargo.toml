@@ -1,0 +1,23 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2024"
+license = "AGPL-3.0-or-later"
+
+[workspace.dependencies]
+nothing-protocol = { path = "crates/nothing-protocol" }
+nothing-bt = { path = "crates/nothing-bt" }
+objc2 = "0.6.5"
+objc2-foundation = "0.3.2"
+objc2-core-foundation = "0.3.2"
+objc2-io-bluetooth = "0.3.2"
+block2 = "0.6.2"
+log = "0.4"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
