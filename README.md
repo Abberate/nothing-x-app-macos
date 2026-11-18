@@ -53,7 +53,7 @@ The interface follows the Nothing design language: monochrome, dot-matrix letter
 
 ## Install
 
-**From the installer:** open `Nothing-X-App-1.0.1.dmg` (Apple Silicon and Intel, macOS 11 or later) and drag *Nothing X App* onto *Applications*. The installer window shows the steps, and *Lisez-moi - Read me.txt* gives the details in French and English.
+**From the installer:** download [`Nothing-X-App-1.0.1.dmg`](https://github.com/Abberate/nothing-x-app-macos/releases/latest) from the Releases page, open it (Apple Silicon and Intel, macOS 11 or later) and drag *Nothing X App* onto *Applications*. The installer window shows the steps, and *Lisez-moi - Read me.txt* gives the details in French and English.
 
 * The app is not signed by an identified Apple developer, so macOS may block the first launch. Go to System Settings > Privacy & Security, click **Open Anyway** and confirm. On macOS 14 or earlier, right-click the app and choose **Open** instead.
 * Allow **Bluetooth** access when macOS asks.
