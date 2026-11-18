@@ -93,16 +93,6 @@ def bookmark_for(path):
         return None
 
 
-def hide_extension(path):
-    """Shows "Nothing X App" rather than "Nothing X App.app" under the icon."""
-    js = (
-        "ObjC.import('Foundation');"
-        "function run(a){var u=$.NSURL.fileURLWithPath(a[0]);"
-        "return u.setResourceValueForKeyError($(true),$.NSURLHasHiddenExtensionKey,$());}"
-    )
-    subprocess.run(["osascript", "-l", "JavaScript", "-e", js, path], capture_output=True, timeout=20)
-
-
 # --- .DS_Store (buddy allocator + single-leaf B-tree) -------------------------------------
 
 def record(name, code, kind, value):
@@ -195,7 +185,6 @@ def main():
     if bookmark:
         records.append((".", "pBBk", "blob", bookmark))
 
-    hide_extension(os.path.join(mount, app))
     with open(os.path.join(mount, ".DS_Store"), "wb") as f:
         f.write(ds_store(records))
     print("  layout written (%d records%s)" % (len(records), ", bookmark" if bookmark else ""))

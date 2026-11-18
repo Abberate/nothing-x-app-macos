@@ -1158,7 +1158,7 @@ checksum = "2bf50223579dc7cdcfb3bfcacf7069ff68243f8c363f62ffa99cf000a6b9c451"
 
 [[package]]
 name = "nothing-bt"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
  "block2 0.6.2",
  "dispatch2",
@@ -1170,11 +1170,11 @@ dependencies = [
 
 [[package]]
 name = "nothing-protocol"
-version = "1.0.1"
+version = "1.0.2"
 
 [[package]]
 name = "nothing-x"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
  "crossbeam-channel",
  "eframe",

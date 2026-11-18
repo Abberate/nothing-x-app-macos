@@ -1,4 +1,4 @@
-NOTHING X APP pour macOS — version 1.0.1
+NOTHING X APP pour macOS — version 1.0.2
 Application compagnon pour écouteurs Nothing & CMF.
 
 APPLICATION NON OFFICIELLE ET NON HOMOLOGUÉE : elle n'est ni développée, ni
@@ -31,6 +31,10 @@ AVANT DE VOUS CONNECTER
   téléphone si elle est ouverte. L'app se connecte toute seule dès que
   c'est possible.
 
+NOUVEAU DANS LA 1.0.2
+- L'icône du Dock est maintenant la même que celle de l'app dans le
+  Finder et le Launchpad.
+
 NOUVEAU DANS LA 1.0.1
 - Plein écran : l'interface garde sa taille et se centre (plus de zoom
   géant).
@@ -48,7 +52,7 @@ CRÉDITS
 
 -----------------------------------------------------------------------
 
-NOTHING X APP for macOS — version 1.0.1
+NOTHING X APP for macOS — version 1.0.2
 Companion app for Nothing & CMF earbuds.
 
 UNOFFICIAL, NON-CERTIFIED APP: not developed, affiliated with, endorsed or
@@ -77,6 +81,9 @@ BEFORE CONNECTING
 - Only one app at a time can control the earbuds: close Ear (web) in
   your browser, and the Nothing X app on your phone if it is open. The
   app connects on its own as soon as it can.
+
+NEW IN 1.0.2
+- The Dock icon now matches the app icon shown in Finder and Launchpad.
 
 NEW IN 1.0.1
 - Full screen: the interface keeps its size and is centred (no more giant
