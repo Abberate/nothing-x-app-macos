@@ -1,9 +1,11 @@
-# Nothing X App for macOS (unofficial) — v1.0
+# Nothing X App for macOS (unofficial) — v1.0.1
 
 A native macOS companion app, written in Rust, for **Nothing & CMF earbuds** (fully supported today: **CMF Buds Pro 2**, all revisions).
 The interface follows the Nothing design language: monochrome, dot-matrix lettering, a red accent. It's laid out for the Mac with a sidebar and dedicated pages, in light or dark mode, and in five languages.
 
-> Unofficial app, not affiliated with or endorsed by Nothing Technology Limited.
+> **Unofficial, non-certified app.** It is not developed, affiliated with, endorsed or certified by Nothing Technology Limited. Use it at your own risk.
+>
+> The first Nothing X app for macOS was made by [eldandelion (Daniel)](https://github.com/eldandelion/nothing-x-macos), based on the work of Arunavo Ray. Thank you!
 
 | Overview | Noise control | Sound (custom EQ) |
 |---|---|---|
@@ -41,10 +43,17 @@ The interface follows the Nothing design language: monochrome, dot-matrix letter
 * **Languages**: English, French, Spanish, German, Italian. The app follows the macOS language by default, and you can change it in Settings.
 * **Appearance**: System, Dark or Light.
 * **Shortcuts**: ⌘1…⌘7 switch pages; Esc closes a dialog.
+* **Full screen**: the interface keeps its size and stays centred.
+
+## Compatibility
+
+* **macOS 11 Big Sur or later**, on Apple Silicon and Intel Macs (universal binary). Developed and tested on a recent macOS release with real CMF Buds Pro 2 (firmware 1.0.1.74).
+* **Earbuds:** CMF Buds Pro 2 are fully supported, in every colour. Other Nothing and CMF models are detected, and the app says that their settings are not supported yet.
+* **CMF Watch** smartwatches are not supported. They use a different protocol, tied to the phone app.
 
 ## Install
 
-**From the installer:** open `Nothing-X-App-1.0.0.dmg` (Apple Silicon and Intel, macOS 12 or later) and drag *Nothing X App* onto *Applications*.
+**From the installer:** open `Nothing-X-App-1.0.1.dmg` (Apple Silicon and Intel, macOS 11 or later) and drag *Nothing X App* onto *Applications*. The installer window shows the steps, and *Lisez-moi - Read me.txt* gives the details in French and English.
 
 * The app is not signed by an identified Apple developer, so macOS may block the first launch. Go to System Settings > Privacy & Security, click **Open Anyway** and confirm. On macOS 14 or earlier, right-click the app and choose **Open** instead.
 * Allow **Bluetooth** access when macOS asks.
@@ -84,7 +93,7 @@ nothingctl --device aa-bb-cc-dd-ee-ff status
 cargo run -- --demo                                         # simulated CMF Buds Pro 2
 NOTHINGX_DEMO=1 NOTHINGX_LANG=de NOTHINGX_THEME=light cargo run
 NOTHINGX_DEMO=1 NOTHINGX_SCENE=custom cargo run
-#   scenes: noise, sound, custom, controls, dial, gesture, find, fit, fit-run, settings, about, devices, language, restart, case-away
+#   scenes: noise, sound, custom, controls, dial, gesture, find, fit, fit-run, settings, about, devices, language, restart, case-away, unsupported
 NOTHINGX_DEMO=1 NOTHINGX_SCREENSHOT=/tmp/shot.png cargo run # saves a screenshot, then quits
 NOTHINGX_DEMO=1 NOTHINGX_CHECK_TEXT=1 NOTHINGX_LANG=de cargo run   # reports any text that doesn't fit its space
 cargo run --release --example make_promo -- <dir> <main.png> <a.png> <b.png>   # social media images
@@ -115,7 +124,8 @@ crates/
 
 ## Credits and licences
 
-* Protocol: a port of [Ear (web)](https://github.com/radiance-project/ear-web) (AGPL-3.0); inspired by [nothing-x-macos](https://github.com/eldandelion/nothing-x-macos) (GPL-3.0).
+* **First version:** [nothing-x-macos](https://github.com/eldandelion/nothing-x-macos) by eldandelion (Daniel), the first Nothing X app for macOS, based on the work of Arunavo Ray (GPL-3.0). This app is a Rust rewrite inspired by it.
+* **Protocol:** a port of [Ear (web)](https://github.com/radiance-project/ear-web) (AGPL-3.0).
 * Code: **AGPL-3.0-or-later** (see `LICENSE`).
 * Font: Space Grotesk (SIL OFL 1.1). The dot-matrix lettering and the icons are drawn in code.
-* Product images: © Nothing Technology Limited.
+* Product images: © Nothing Technology Limited. "Nothing" and "CMF" are trademarks of Nothing Technology Limited.

@@ -186,6 +186,34 @@ impl NothingApp {
         let caps = st.caps;
         let mut y = Y0;
 
+        // Models this version doesn't fully know: say so up front.
+        if st.caps.is_none() && st.model.is_some() {
+            let body_h =
+                widgets::text_height(p, t(T::UnsupportedBody), theme::regular(12.5), CW - 80.0);
+            let banner = c.rect(X0, y, CW, body_h + 52.0);
+            p.rect_filled(banner, 16.0, pl.warn.gamma_multiply(0.14));
+            icons::warning(p, banner.left_top() + vec2(30.0, 26.0), 20.0, pl.warn);
+            fit_text(
+                p,
+                banner.left_top() + vec2(52.0, 26.0),
+                Align2::LEFT_CENTER,
+                t(T::UnsupportedTitle),
+                theme::medium(14.0),
+                CW - 80.0,
+                pl.text,
+            );
+            widgets::text_wrapped(
+                p,
+                banner.left_top() + vec2(52.0, 40.0),
+                CW - 80.0,
+                t(T::UnsupportedBody),
+                theme::regular(12.5),
+                pl.text_dim,
+                Align::LEFT,
+            );
+            y += banner.height() + 20.0;
+        }
+
         // Hero: left bud, case, right bud, with dot-matrix battery levels.
         let mid = X0 + CW / 2.0;
         let case = self.case_level(snap);
@@ -1933,6 +1961,63 @@ impl NothingApp {
                     1 => self.modal = Modal::Logs,
                     _ => self.session.disconnect(),
                 }
+            }
+            bx += w + 10.0;
+        }
+        y += card.height() + 28.0;
+
+        // Credits.
+        widgets::section_label(p, c.at(X0 + 4.0, y), t(T::SecCredits));
+        y += 24.0;
+        let lines = [
+            t(T::CreditFirst),
+            t(T::CreditProtocol),
+            t(T::CreditTrademarks),
+        ];
+        let text_h: f32 = lines
+            .iter()
+            .map(|l| widgets::text_height(p, l, theme::regular(13.0), CW - 40.0) + 10.0)
+            .sum();
+        let card = c.rect(X0, y, CW, text_h + 84.0);
+        widgets::card(p, card);
+        let mut ty = y + 20.0;
+        for (i, line) in lines.iter().enumerate() {
+            let color = if i == 0 { pl.text } else { pl.text_dim };
+            ty += widgets::text_wrapped(
+                p,
+                c.at(X0 + 20.0, ty),
+                CW - 40.0,
+                line,
+                theme::regular(13.0),
+                color,
+                Align::LEFT,
+            ) + 10.0;
+        }
+        let mut bx = X0 + 20.0;
+        let links = [
+            (
+                "eldandelion/nothing-x-macos",
+                "https://github.com/eldandelion/nothing-x-macos",
+            ),
+            (
+                "radiance-project/ear-web",
+                "https://github.com/radiance-project/ear-web",
+            ),
+        ];
+        for (i, (label, url)) in links.iter().enumerate() {
+            let w = widgets::button_width(p, label);
+            if widgets::button(
+                c.ui,
+                p,
+                c.rect(bx, ty + 4.0, w, 38.0),
+                ("credit-link", i),
+                label,
+                ButtonKind::Secondary,
+                true,
+            )
+            .clicked()
+            {
+                let _ = std::process::Command::new("open").arg(url).spawn();
             }
             bx += w + 10.0;
         }

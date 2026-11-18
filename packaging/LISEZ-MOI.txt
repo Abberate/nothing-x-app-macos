@@ -1,6 +1,17 @@
-NOTHING X APP pour macOS — version 1.0.0
-Application compagnon (non officielle) pour écouteurs Nothing & CMF.
-Entièrement prise en charge : CMF Buds Pro 2.
+NOTHING X APP pour macOS — version 1.0.1
+Application compagnon pour écouteurs Nothing & CMF.
+
+APPLICATION NON OFFICIELLE ET NON HOMOLOGUÉE : elle n'est ni développée, ni
+affiliée, ni approuvée, ni certifiée par Nothing Technology Limited.
+Utilisation à vos risques. « Nothing » et « CMF » sont des marques de
+Nothing Technology Limited.
+
+COMPATIBILITÉ
+- macOS 11 Big Sur ou plus récent, Mac Apple Silicon (M1 à M5) et Intel.
+- Écouteurs entièrement pris en charge : CMF Buds Pro 2 (tous coloris).
+- Les autres modèles Nothing / CMF sont détectés, mais leurs réglages ne
+  sont pas encore pris en charge (un message l'indique dans l'app).
+- Les montres CMF Watch ne sont pas prises en charge.
 
 INSTALLATION
 1. Glissez « Nothing X App » sur le dossier « Applications ».
@@ -20,14 +31,36 @@ AVANT DE VOUS CONNECTER
   téléphone si elle est ouverte. L'app se connecte toute seule dès que
   c'est possible.
 
-Application non officielle, ni affiliée ni approuvée par
-Nothing Technology Limited.
+NOUVEAU DANS LA 1.0.1
+- Plein écran : l'interface garde sa taille et se centre (plus de zoom
+  géant).
+- Crédits et mention « non officielle, non homologuée » dans Réglages.
+- Message clair si le modèle d'écouteurs n'est pas encore pris en charge.
+- Installeur avec instructions dans la fenêtre.
+
+CRÉDITS
+- La première app Nothing X pour macOS a été créée par eldandelion
+  (Daniel) : https://github.com/eldandelion/nothing-x-macos
+  d'après le travail d'Arunavo Ray. Merci !
+- Protocole documenté grâce à Ear (web) :
+  https://github.com/radiance-project/ear-web
+- Licence : AGPL-3.0-or-later.
 
 -----------------------------------------------------------------------
 
-NOTHING X APP for macOS — version 1.0.0
-Unofficial companion app for Nothing & CMF earbuds.
-Fully supported: CMF Buds Pro 2.
+NOTHING X APP for macOS — version 1.0.1
+Companion app for Nothing & CMF earbuds.
+
+UNOFFICIAL, NON-CERTIFIED APP: not developed, affiliated with, endorsed or
+certified by Nothing Technology Limited. Use at your own risk. "Nothing"
+and "CMF" are trademarks of Nothing Technology Limited.
+
+COMPATIBILITY
+- macOS 11 Big Sur or later, Apple Silicon (M1 to M5) and Intel Macs.
+- Fully supported earbuds: CMF Buds Pro 2 (all colours).
+- Other Nothing / CMF models are detected but their settings are not
+  supported yet (the app says so).
+- CMF Watch smartwatches are not supported.
 
 INSTALL
 1. Drag "Nothing X App" onto the "Applications" folder.
@@ -45,5 +78,17 @@ BEFORE CONNECTING
   your browser, and the Nothing X app on your phone if it is open. The
   app connects on its own as soon as it can.
 
-Unofficial app, not affiliated with or endorsed by Nothing Technology
-Limited.
+NEW IN 1.0.1
+- Full screen: the interface keeps its size and is centred (no more giant
+  zoom).
+- Credits and "unofficial, non-certified" notice in Settings.
+- Clear message when an earbuds model is not supported yet.
+- Installer window with instructions.
+
+CREDITS
+- The first Nothing X app for macOS was made by eldandelion (Daniel):
+  https://github.com/eldandelion/nothing-x-macos
+  based on the work of Arunavo Ray. Thank you!
+- Protocol documented thanks to Ear (web):
+  https://github.com/radiance-project/ear-web
+- License: AGPL-3.0-or-later.

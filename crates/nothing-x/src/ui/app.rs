@@ -386,7 +386,9 @@ impl NothingApp {
     fn apply_zoom(ctx: &egui::Context, screen: Rect) {
         let z = ctx.zoom_factor();
         let raw = screen.size() * z;
-        let target = (raw.x / W).min(raw.y / 600.0).clamp(0.7, 2.0);
+        // Shrink to fit small windows, but never enlarge: in fullscreen the layout
+        // keeps its natural size and the content is centred instead.
+        let target = (raw.x / W).min(raw.y / 600.0).clamp(0.7, 1.0);
         if (target - z).abs() > 0.01 {
             ctx.set_zoom_factor(target);
         }
@@ -697,15 +699,30 @@ impl NothingApp {
 // ---------------------------------------------------------------------------------------
 
 impl NothingApp {
-    fn shell(&mut self, cx: &Cx, snap: &Snapshot, now: f64) {
+    fn shell(&mut self, ui_cx: &Cx, snap: &Snapshot, now: f64) {
         let pl = pal();
-        let side = Rect::from_min_max(cx.screen.min, pos2(cx.o.x + SIDEBAR, cx.screen.bottom()));
+        let screen = ui_cx.screen;
+        // Sidebar pinned to the left edge; content centred in the rest of the window.
+        let side_cx = Cx {
+            ui: ui_cx.ui,
+            p: ui_cx.p.clone(),
+            o: screen.min,
+            screen,
+        };
+        let extra = (screen.width() - W).max(0.0);
+        let cx = &Cx {
+            ui: ui_cx.ui,
+            p: ui_cx.p.clone(),
+            o: pos2(screen.left() + extra / 2.0, screen.top()),
+            screen,
+        };
+        let side = Rect::from_min_max(screen.min, pos2(screen.left() + SIDEBAR, screen.bottom()));
         cx.p.rect_filled(side, 0.0, pl.sidebar);
         cx.p.line_segment(
             [side.right_top(), side.right_bottom()],
             Stroke::new(1.0, pl.stroke),
         );
-        self.sidebar(cx, snap, now);
+        self.sidebar(&side_cx, snap, now);
 
         // Header.
         let fade = ((now - self.page_changed_at) / 0.22).clamp(0.0, 1.0) as f32;
@@ -743,7 +760,7 @@ impl NothingApp {
         // Scrollable content.
         let idx = self.page.index();
         let clip = Rect::from_min_max(
-            pos2(cx.o.x + SIDEBAR + 1.0, cx.screen.top() + HEADER_H),
+            pos2(screen.left() + SIDEBAR + 1.0, cx.screen.top() + HEADER_H),
             cx.screen.right_bottom(),
         );
         let visible_bottom = cx.screen.bottom() - cx.o.y;
@@ -806,7 +823,7 @@ impl NothingApp {
 
         if snap.phase == Phase::Initializing {
             let area = Rect::from_min_max(
-                pos2(cx.o.x + SIDEBAR + 1.0, cx.screen.top()),
+                pos2(screen.left() + SIDEBAR + 1.0, cx.screen.top()),
                 cx.screen.right_bottom(),
             );
             cx.p.rect_filled(area, 0.0, pl.bg.gamma_multiply(0.94));
@@ -1698,8 +1715,9 @@ impl NothingApp {
         let galley =
             cx.p.layout_no_wrap(text.clone(), theme::medium(13.5), pl.on_inverse);
         let size = galley.size() + vec2(40.0, 22.0);
-        let x =
-            (cx.o.x + SIDEBAR + (W - SIDEBAR) / 2.0).min(cx.screen.right() - size.x / 2.0 - 16.0);
+        // Centred on the content area (right of the sidebar).
+        let x = (cx.screen.left() + SIDEBAR + (cx.screen.width() - SIDEBAR) / 2.0)
+            .min(cx.screen.right() - size.x / 2.0 - 16.0);
         let rect = Rect::from_center_size(
             pos2(x, cx.screen.bottom() - 44.0 + (1.0 - alpha) * 10.0),
             size,

@@ -2,6 +2,7 @@
 
 mod app;
 mod assets;
+pub mod dmg_bg;
 pub mod dotmatrix;
 mod i18n;
 mod icons;

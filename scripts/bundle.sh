@@ -7,6 +7,8 @@ cd "$(dirname "$0")/.."
 
 APP="dist/Nothing X App.app"
 BINS=(nothing-x nothingctl)
+# Same minimum macOS for both architectures (matches LSMinimumSystemVersion).
+export MACOSX_DEPLOYMENT_TARGET=11.0
 
 if [[ "${1:-}" == "--universal" ]]; then
   for t in aarch64-apple-darwin x86_64-apple-darwin; do

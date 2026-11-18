@@ -984,7 +984,12 @@ impl Session {
         use nothing_protocol::gesture::{GestureRecord as G, action as a, kind as k};
         use nothing_protocol::message::{AncKind, AncReport};
         use nothing_protocol::{AncStrength, BatteryLevel, DualDevice};
-        let model = model::lookup(0x2F45F5);
+        // Scene "unsupported": a model this version detects but can't drive yet.
+        let model = if std::env::var("NOTHINGX_SCENE").as_deref() == Ok("unsupported") {
+            model::lookup(0x5E3FBC)
+        } else {
+            model::lookup(0x2F45F5)
+        };
         let lvl = |p| {
             Some(BatteryLevel {
                 percent: p,
