@@ -212,3 +212,33 @@ pub fn draw(
     }
     rect
 }
+
+/// Menu bar glyph: a dot-matrix "X" in black on transparent, 36×36 px (shown at 18 pt).
+pub fn menu_bar_png() -> Vec<u8> {
+    const N: u32 = 36;
+    let pattern = ["X...X", ".X.X.", "..X..", ".X.X.", "X...X"];
+    let mut img = image::RgbaImage::new(N, N);
+    for y in 0..N {
+        for x in 0..N {
+            let mut hits = 0;
+            for s in 0..16 {
+                let px = x as f32 + ((s % 4) as f32 + 0.5) / 4.0;
+                let py = y as f32 + ((s / 4) as f32 + 0.5) / 4.0;
+                let on = pattern.iter().enumerate().any(|(r, row)| {
+                    row.bytes().enumerate().any(|(c, b)| {
+                        let (cx, cy) = (4.0 + c as f32 * 7.0, 4.0 + r as f32 * 7.0);
+                        let rad = if b == b'X' { 3.1 } else { 1.0 };
+                        (px - cx).powi(2) + (py - cy).powi(2) <= rad * rad
+                    })
+                });
+                if on {
+                    hits += 1;
+                }
+            }
+            img.put_pixel(x, y, image::Rgba([0, 0, 0, (hits * 255 / 16) as u8]));
+        }
+    }
+    let mut out = std::io::Cursor::new(Vec::new());
+    let _ = img.write_to(&mut out, image::ImageFormat::Png);
+    out.into_inner()
+}

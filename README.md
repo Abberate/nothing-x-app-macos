@@ -1,4 +1,4 @@
-# Nothing X App for macOS (unofficial) — v1.0.2
+# Nothing X App for macOS (unofficial) — v1.0.3
 
 A native macOS companion app, written in Rust, for **Nothing & CMF earbuds** (fully supported today: **CMF Buds Pro 2**, all revisions).
 The interface follows the Nothing design language: monochrome, dot-matrix lettering, a red accent. It's laid out for the Mac with a sidebar and dedicated pages, in light or dark mode, and in five languages.
@@ -42,6 +42,7 @@ The interface follows the Nothing design language: monochrome, dot-matrix letter
   * Language, appearance, and device details (model, firmware, serial number, address).
 * **Languages**: English, French, Spanish, German, Italian. The app follows the macOS language by default, and you can change it in Settings.
 * **Appearance**: System, Dark or Light.
+* **Menu bar**: closing the window keeps the app running in the menu bar, with the batteries and noise control one click away. *Open* brings the window back; *Quit* or ⌘Q quits.
 * **Shortcuts**: ⌘1…⌘7 switch pages; Esc closes a dialog.
 * **Full screen**: the interface keeps its size and stays centred.
 
@@ -53,7 +54,7 @@ The interface follows the Nothing design language: monochrome, dot-matrix letter
 
 ## Install
 
-**From the installer:** download [`Nothing-X-App-1.0.2.dmg`](https://github.com/Abberate/nothing-x-app-macos/releases/latest) from the Releases page, open it (Apple Silicon and Intel, macOS 11 or later) and drag *Nothing X App* onto *Applications*. The installer window shows the steps, and *Lisez-moi - Read me.txt* gives the details in French and English.
+**From the installer:** download [`Nothing-X-App-1.0.3.dmg`](https://github.com/Abberate/nothing-x-app-macos/releases/latest) from the Releases page, open it (Apple Silicon and Intel, macOS 11 or later) and drag *Nothing X App* onto *Applications*. The installer window shows the steps, and *Lisez-moi - Read me.txt* gives the details in French and English.
 
 * The app is not signed by an identified Apple developer, so macOS may block the first launch. Go to System Settings > Privacy & Security, click **Open Anyway** and confirm. On macOS 14 or earlier, right-click the app and choose **Open** instead.
 * Allow **Bluetooth** access when macOS asks.

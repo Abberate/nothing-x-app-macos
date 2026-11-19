@@ -7,7 +7,7 @@ use egui::{
 };
 use nothing_bt::PairedDevice;
 use nothing_protocol::gesture::GestureSlot;
-use nothing_protocol::{Codec, DeviceState};
+use nothing_protocol::{AncMode, AncStrength, Codec, DeviceState};
 
 use super::assets::BudImages;
 use super::i18n::{self, Lang, T, t};
@@ -130,6 +130,8 @@ pub(super) enum RestartKind {
 }
 
 pub struct NothingApp {
+    /// The status item is installed: closing the window hides it instead of quitting.
+    menubar: bool,
     pub(super) session: SessionHandle,
     pub(super) images: Option<BudImages>,
     pub(super) page: Page,
@@ -192,6 +194,7 @@ impl NothingApp {
             .unwrap_or(45);
         let screenshot = std::env::var_os("NOTHINGX_SCREENSHOT").map(|p| (p.into(), frames));
         let mut app = Self {
+            menubar: false,
             session,
             images: None,
             page: Page::Overview,
@@ -228,6 +231,29 @@ impl NothingApp {
         };
         if let Ok(scene) = std::env::var("NOTHINGX_SCENE") {
             app.apply_scene(&scene);
+        }
+        // Menu bar item (not for automated screenshots and checks).
+        if app.screenshot.is_none() && std::env::var_os("NOTHINGX_CHECK_TEXT").is_none() {
+            let (s1, s2) = (app.session.clone(), app.session.clone());
+            app.menubar = crate::menubar::install(
+                &cc.egui_ctx,
+                &super::dotmatrix::menu_bar_png(),
+                Box::new(move || menu_model(&s1.snapshot())),
+                Box::new(move |action| {
+                    let snap = s2.snapshot();
+                    let strength = match snap.state.anc {
+                        Some(AncMode::NoiseCancelling(s)) => s,
+                        _ => AncStrength::High,
+                    };
+                    let mode = match action {
+                        1 => AncMode::NoiseCancelling(strength),
+                        2 => AncMode::Transparency,
+                        3 => AncMode::Off,
+                        _ => return,
+                    };
+                    s2.act(Action::SetAnc(mode));
+                }),
+            );
         }
         app
     }
@@ -444,6 +470,25 @@ pub(super) fn device_name(snap: &Snapshot) -> String {
 impl eframe::App for NothingApp {
     fn ui(&mut self, ui: &mut Ui, _frame: &mut eframe::Frame) {
         let ctx = ui.ctx().clone();
+        // Visual check of the menu bar behaviour: simulate the close button.
+        if let Some(n) = std::env::var("NOTHINGX_TEST_CLOSE_AFTER")
+            .ok()
+            .and_then(|v| v.parse::<u32>().ok())
+        {
+            let f = ctx.cumulative_frame_nr();
+            if f == n as u64 {
+                ctx.send_viewport_cmd(egui::ViewportCommand::Close);
+            }
+            ctx.request_repaint();
+        }
+        // The close button hides the window to the menu bar; Quit really quits.
+        if self.menubar
+            && ctx.input(|i| i.viewport().close_requested())
+            && !crate::menubar::quitting()
+        {
+            ctx.send_viewport_cmd(egui::ViewportCommand::CancelClose);
+            crate::menubar::hide_window();
+        }
         self.handle_screenshot(&ctx);
         theme::set_palette(if ctx.theme() == egui::Theme::Dark {
             theme::DARK
@@ -1762,4 +1807,69 @@ fn modal_message(c: &Cx, card: Rect, title: T, body: T) -> bool {
         40.0,
     );
     widgets::button(c.ui, p, ok, "msg-ok", t(T::Done), ButtonKind::Primary, true).clicked()
+}
+
+/// What the menu bar item shows: earbuds, batteries and noise control.
+fn menu_model(snap: &crate::session::Snapshot) -> crate::menubar::Model {
+    use crate::menubar::Line;
+    let st = &snap.state;
+    let mut lines = Vec::new();
+    match &snap.device {
+        None => lines.push(Line::Info(t(T::MenuNoDevice).to_string())),
+        Some(device) => {
+            let ready = snap.phase == Phase::Ready;
+            let status = if ready {
+                t(T::Connected)
+            } else {
+                t(T::NotConnected)
+            };
+            lines.push(Line::Info(format!("{} · {status}", device.name)));
+            let parts: Vec<String> = [
+                (t(T::Left), st.left),
+                (t(T::Right), st.right),
+                (t(T::Case), st.case),
+            ]
+            .into_iter()
+            .filter_map(|(label, b)| {
+                b.map(|b| {
+                    format!(
+                        "{label} {} %{}",
+                        b.percent,
+                        if b.charging { " ⚡" } else { "" }
+                    )
+                })
+            })
+            .collect();
+            if !parts.is_empty() {
+                lines.push(Line::Info(parts.join(" · ")));
+            }
+            lines.push(Line::Separator);
+            let modes = [
+                (
+                    t(T::AncNc),
+                    matches!(st.anc, Some(AncMode::NoiseCancelling(_))),
+                    1,
+                ),
+                (
+                    t(T::AncTransparency),
+                    st.anc == Some(AncMode::Transparency),
+                    2,
+                ),
+                (t(T::Off), st.anc == Some(AncMode::Off), 3),
+            ];
+            for (title, checked, action) in modes {
+                lines.push(Line::Item {
+                    title: title.to_string(),
+                    checked,
+                    enabled: ready,
+                    action,
+                });
+            }
+        }
+    }
+    crate::menubar::Model {
+        lines,
+        open: t(T::MenuOpen).to_string(),
+        quit: t(T::MenuQuit).to_string(),
+    }
 }

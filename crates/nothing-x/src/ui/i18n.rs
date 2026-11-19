@@ -146,6 +146,9 @@ strings! {
     Right => ["Right", "Droit", "Derecho", "Rechts", "Destro"],
     Case => ["Case", "Boîtier", "Estuche", "Case", "Custodia"],
     On => ["On", "Activé", "Activado", "An", "Attivo"],
+    MenuOpen => ["Open Nothing X App", "Ouvrir Nothing X App", "Abrir Nothing X App", "Nothing X App öffnen", "Apri Nothing X App"],
+    MenuQuit => ["Quit Nothing X App", "Quitter Nothing X App", "Salir de Nothing X App", "Nothing X App beenden", "Esci da Nothing X App"],
+    MenuNoDevice => ["No earbuds connected", "Aucun écouteur connecté", "Ningún auricular conectado", "Keine Ohrhörer verbunden", "Nessun auricolare connesso"],
     Off => ["Off", "Désactivé", "Desactivado", "Aus", "Disattivato"],
     TapToRing => ["Play a sound", "Faire sonner", "Reproducir sonido", "Ton abspielen", "Riproduci suono"],
 
